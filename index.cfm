@@ -7,13 +7,13 @@
 	<body>
 		<div ng:controller="TodoCtrl">
 			<input type="text" name="todoText" size="35" placeholder="enter your todo here"/>
-			<button ng:click="addTodo()">add</button>
+			<button class="ui-state-active ui-corner-all" ng:click="addTodo()">add</button>
 			<br>
 			<label>{{remaining}} remaining</label>
-			<button ng:click="removeDone()">remove done</button>
+			<button class="ui-state-active ui-corner-all" ng:click="removeDone()">remove done</button>
 			<br>
-			<ul ng:repeat="todo in todos">
-				<li>
+			<ul ng:repeat="todo in todos" ng:init="$('input:checkbox').button();">
+				<li class="ui-state-default">
 					<input type="checkbox" name="todo.done" ng:click="recalc()">
 					<span ng:class="'done-' + todo.done">{{todo.text}}</span>
 					<br>

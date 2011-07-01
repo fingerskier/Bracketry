@@ -1,0 +1,8 @@
+ul {
+	list-style-type: none;
+}
+
+.done-true {
+	text-decoration: line-through;
+	color: gray;
+}

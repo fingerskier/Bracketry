@@ -6,7 +6,13 @@ $(document).ready(function() {
 		
 		$(target).load(url);
 	});
+	
+	$('button').button();
 });
+
+function buttonify() {
+	$('input:checkbox').button();
+}
 
 function TodoCtrl() {
 	var scope = this;
@@ -15,7 +21,7 @@ function TodoCtrl() {
 		{text:'build an angular app', done:false}
 	];
 	scope.remaining = scope.todos.length;
-   
+
 	scope.addTodo = function() {
 		scope.todos.push({text:scope.todoText, done:false});
 		scope.remaining++;
