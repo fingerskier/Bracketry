@@ -6,16 +6,18 @@
 
 	<body>
 		<div ng:controller="TodoCtrl">
-			<input type="text" name="todoText" size="35" placeholder="enter your todo here"/>
+			<input type="text" name="todoText" size="35" placeholder="enter your todo here">
+			<input type="text" name="todoDate" size="17" placeholder="due date">
 			<button class="ui-state-active ui-corner-all" ng:click="addTodo()">add</button>
 			<br>
 			<label>{{remaining}} remaining</label>
 			<button class="ui-state-active ui-corner-all" ng:click="removeDone()">remove done</button>
 			<br>
 			<ul ng:repeat="todo in todos" ng:init="$('input:checkbox').button();">
-				<li class="ui-state-default">
+				<li>
 					<input type="checkbox" name="todo.done" ng:click="recalc()">
 					<span ng:class="'done-' + todo.done">{{todo.text}}</span>
+					<span ng:class="'done-' + todo.done">{{todo.date}}</span>
 					<br>
 				</li>
 			</ul>

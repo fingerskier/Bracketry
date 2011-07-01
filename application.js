@@ -17,13 +17,13 @@ function buttonify() {
 function TodoCtrl() {
 	var scope = this;
 	scope.todos = [
-		{text:'learn angular', done:true},
-		{text:'build an angular app', done:false}
+		{text:'learn angular', date:'', done:true},
+		{text:'build an angular app', date:'', done:false}
 	];
 	scope.remaining = scope.todos.length;
 
 	scope.addTodo = function() {
-		scope.todos.push({text:scope.todoText, done:false});
+		scope.todos.push({text:scope.todoText, date:scope.todoDate, done:false});
 		scope.remaining++;
 		scope.todoText = '';
 	}
