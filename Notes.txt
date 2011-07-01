@@ -1,0 +1,21 @@
+Bracketry
+
+a framework
+a 'nother' framework
+a CFML, AJAX framework idealizing <angular /> and node
+
+Concepts:
+	3-way data binding
+		changes to <input>'s update the client model
+			which gets pushed to the server
+		changes to the server model get pushed to the client model
+			which updates <input>'s
+	Data Scope based on DOM/tag hierarchy
+		scope is named based on tag's id
+		tags that are not co-existent ?can share scope?
+
+	custom attributes to declare behaviors
+		view=""		a URL from which to load this tag's innards
+
+Syntax:
+	
