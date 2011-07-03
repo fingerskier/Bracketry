@@ -26,6 +26,10 @@
 		<script language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="application/javascript"></script>
 		<script language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.js" type="application/javascript"></script>
 		<script src="http://code.angularjs.org/0.9.17/angular-0.9.17.min.js" ng:autobind></script>
-		<script language="JavaScript" src="application.js" type="application/javascript"></script>
+		<script language="JavaScript" src="js/application.js" type="application/javascript"></script>
+		<script language="JavaScript" src="js/controllers.js" type="application/javascript"></script>
+		<script language="JavaScript" src="js/filters.js" type="application/javascript"></script>
+		<script language="JavaScript" src="js/services.js" type="application/javascript"></script>
+		<script language="JavaScript" src="js/widgets.js" type="application/javascript"></script>
 	</body>
 </html>
