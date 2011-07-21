@@ -30,6 +30,7 @@
 		<cfset var dbg = "">
 		<cfset var I = 0>
 		<cfset var msg = "">
+  		<cfset var val = "">
 
 		<cfif isDefined('arguments.submittal') and (arguments.submittal is 'erase')>
 			<cfset application.debugLog = arrayNew(1)>
@@ -43,10 +44,14 @@
 		</cfform>
 		<br style="clear: both;">
 		<cfloop array="#application.debugLog#" index="dbg">
-			<cfset msg = ++I>
-			<cfif arrayLen(structFindKey(dbg, 'message', "one"))>
-				<cfset msg &= structFind(dbg, 'message')>
+			<cfset ++I>
+
+   			<cfset msg = dbg.name>
+	  		<cfif not len(msg)>
+	 			<cfset msg = I>
 			</cfif>
+	  		<cfset val = dbg.value>
+
 			<a href="##" onclick="ColdFusion.navigate('view.cfm?scope=application.debugLog&key=#I#', 'viewer')">#msg#</a>
 			<br>
 		</cfloop>
