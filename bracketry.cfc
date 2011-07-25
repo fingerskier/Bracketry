@@ -1,16 +1,4 @@
-<cfcomponent extends="bracketry.bracketry" output="false">
-	<cfset this.name = hash(getCurrentTemplatePath())>
-	<cfset this.sessionManagement = true>
-	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
-	<cfset this.applicationTimeout = createTimeSpan(0,1,0,0)>
-	<cfset this.loginStorage = 'session'>
-	<cfset this.debugipaddress = '127.0.0.1,0:0:0:0:0:0:0:1'>
- 	<cfset this.customTagPaths = './'>
-
-	<cfset this.datasource = 'AD'>
-	<cfset this.ormenabled = true>
-	<cfset this.ormsettings = {dbcreate="dropcreate", dialect="Derby", eventHandling=true}>
-
+<cfcomponent displayname="" hint="" output="false">
 	<cffunction access="public" name="context">
 		<cfargument name="name" required="false" type="string">
 		<cfargument name="value" required="false" type="any">
@@ -87,8 +75,8 @@
 				<cfset request.sectionAction = ''>
 			</cfif>
 
-			<cfset request.sectionLayout = request.section & '/' & 'layout.cfm'>
-   			<cfif not fileExists(expandPath(request.sectionLayout))>
+			<cfset request.sectionLayout = request.sectionPath & 'layout.cfm'>
+   			<cfif not fileExists(request.sectionLayout)>
 				<cfset request.sectionLayout = ''>
 			</cfif>
 
@@ -119,23 +107,71 @@
   		<cfset var doGlobalAction = len(application.brack.globalAction)>
 		<cfset var doGlobalLayout = len(application.brack.globalLayout)>
 
-		<cfif doGlobalAction and doGlobalLayout>
-  			<cf_action context="#context#">
+		<cfoutput>
+			<cfif doGlobalAction and doGlobalLayout>
+	  			<cf_action context="#context#">
+		 			<cf_layout context="#context#">
+	  					<cf_section context="#context#" />
+					</cf_layout>
+				</cf_action>
+			<cfelseif doGlobalAction>
+	  			<cf_action context="#context#">
+  					<cf_section context="#context#" />
+				</cf_action>
+			<cfelseif doGlobalLayout>
 	 			<cf_layout context="#context#">
   					<cf_section context="#context#" />
 				</cf_layout>
-			</cf_action>
-		<cfelseif doGlobalAction>
-  			<cf_action context="#context#">
+			<cfelse>
 				<cf_section context="#context#" />
-			</cf_action>
-		<cfelseif doGlobalLayout>
- 			<cf_layout context="#context#">
-				<cf_section context="#context#" />
-			</cf_layout>
-		<cfelse>
-			<cf_section context="#context#" />
-		</cfif>
+			</cfif>
+		</cfoutput>
+	</cffunction>
+
+	<cffunction name="renderSection" output="true">
+ 		<cfargument name="request">
+
+  		<cfset var doSectionAction = len(request.sectionAction)>
+		<cfset var doSectionLayout = len(request.sectionLayout)>
+
+		<cfoutput>
+			<cfif doSectionAction and doSectionLayout>
+	  			<cfmodule template="/auto-driller/#request.sectionAction#" context="#context#">
+		 			<cfmodule template="/auto-driller/#request.sectionLayout#" context="#context#">
+	  					#renderItem(request)#
+					</cfmodule>
+				</cfmodule>
+			<cfelseif doSectionAction>
+	  			<cfmodule template="/auto-driller/#request.sectionAction#" context="#context#">
+  					#renderItem(request)#
+				</cfmodule>
+			<cfelseif doSectionLayout>
+	 			<cfmodule template="/auto-driller/#request.sectionLayout#" context="#context#">
+  					#renderItem(request)#
+				</cfmodule>
+			<cfelse>
+				#renderItem(request)#
+			</cfif>
+		</cfoutput>
+	</cffunction>
+
+	<cffunction name="renderItem" output="true">
+ 		<cfargument name="request">
+
+  		<cfset var doItemAction = len(request.itemAction)>
+		<cfset var doItemView = len(request.itemView)>
+
+		<cfoutput>
+			<cfif doItemAction and doItemView>
+	  			<cfmodule template="/auto-driller/#request.itemAction#" context="#context#">
+		 			<cfmodule template="/auto-driller/#request.itemView#" context="#context#" />
+				</cfmodule>
+			<cfelseif doItemAction>
+	  			<cfmodule template="/auto-driller/#request.itemAction#" context="#context#" />
+			<cfelse>
+	 			<cfmodule template="/auto-driller/#request.itemView#" context="#context#" />
+			</cfif>
+		</cfoutput>
 	</cffunction>
 
 	<cffunction name="onRequestEnd" access="public" returntype="void" output="true">
